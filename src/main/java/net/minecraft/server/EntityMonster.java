@@ -199,4 +199,17 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     protected boolean aF() {
         return true;
     }
+    
+    public void aa(boolean flag) {
+        byte b0 = this.datawatcher.getByte(16);
+
+        if (flag) {
+            b0 = (byte) (b0 | 1);
+        } else {
+            b0 &= -2;
+        }
+
+        this.datawatcher.watch(16, Byte.valueOf(b0));
+    }
+    
 }

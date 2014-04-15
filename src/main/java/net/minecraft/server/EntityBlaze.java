@@ -93,13 +93,13 @@ public class EntityBlaze extends EntityMonster {
         ++this.br;
         if (this.br == 1) {
             this.attackTicks = 60;
-            this.a(true);
+            aa(true);
         } else if (this.br <= 4) {
             this.attackTicks = 6;
         } else {
             this.attackTicks = 100;
             this.br = 0;
-            this.a(false);
+            aa(false);
         }
     }
 
@@ -146,18 +146,6 @@ public class EntityBlaze extends EntityMonster {
 
     public boolean bZ() {
         return (this.datawatcher.getByte(16) & 1) != 0;
-    }
-
-    public void a(boolean flag) {
-        byte b0 = this.datawatcher.getByte(16);
-
-        if (flag) {
-            b0 = (byte) (b0 | 1);
-        } else {
-            b0 &= -2;
-        }
-
-        this.datawatcher.watch(16, Byte.valueOf(b0));
     }
 
     protected boolean j_() {
