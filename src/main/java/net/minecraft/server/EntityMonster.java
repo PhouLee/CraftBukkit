@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityTargetEvent; // CraftBukkit
 
 public abstract class EntityMonster extends EntityCreature implements IMonster {
@@ -7,6 +8,38 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     public EntityMonster(World world) {
         super(world);
         this.b = 5;
+    }
+    
+    protected void worldStuff() {
+        float f = this.d(1.0F);
+
+        if (f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.i(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ))) {
+            boolean flag = true;
+            ItemStack itemstack = this.getEquipment(4);
+
+            if (itemstack != null) {
+                if (itemstack.g()) {
+                    itemstack.setData(itemstack.j() + this.random.nextInt(2));
+                    if (itemstack.j() >= itemstack.l()) {
+                        this.a(itemstack);
+                        this.setEquipment(4, (ItemStack) null);
+                    }
+                }
+
+                flag = false;
+            }
+
+            if (flag) {
+                // CraftBukkit start
+                EntityCombustEvent event = new EntityCombustEvent(this.getBukkitEntity(), 8);
+                this.world.getServer().getPluginManager().callEvent(event);
+
+                if (!event.isCancelled()) {
+                    this.setOnFire(event.getDuration());
+                }
+                // CraftBukkit end
+            }
+        }
     }
 
     public void e() {
