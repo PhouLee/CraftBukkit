@@ -20,4 +20,6 @@ public class CraftMonster extends CraftCreature implements Monster {
     public String toString() {
         return "CraftMonster";
     }
+    
+    
 }

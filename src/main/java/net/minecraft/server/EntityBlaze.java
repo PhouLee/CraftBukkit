@@ -80,34 +80,41 @@ public class EntityBlaze extends EntityMonster {
             double d2 = entity.locZ - this.locZ;
 
             if (this.attackTicks == 0) {
-                ++this.br;
-                if (this.br == 1) {
-                    this.attackTicks = 60;
-                    this.a(true);
-                } else if (this.br <= 4) {
-                    this.attackTicks = 6;
-                } else {
-                    this.attackTicks = 100;
-                    this.br = 0;
-                    this.a(false);
-                }
-
-                if (this.br > 1) {
-                    float f1 = MathHelper.c(f) * 0.5F;
-
-                    this.world.a((EntityHuman) null, 1009, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
-
-                    for (int i = 0; i < 1; ++i) {
-                        EntitySmallFireball entitysmallfireball = new EntitySmallFireball(this.world, this, d0 + this.random.nextGaussian() * (double) f1, d1, d2 + this.random.nextGaussian() * (double) f1);
-
-                        entitysmallfireball.locY = this.locY + (double) (this.length / 2.0F) + 0.5D;
-                        this.world.addEntity(entitysmallfireball);
-                    }
-                }
+                setTicks();
+                shootFireballs(f, d0, d1, d2);
             }
 
             this.yaw = (float) (Math.atan2(d2, d0) * 180.0D / 3.1415927410125732D) - 90.0F;
             this.bn = true;
+        }
+    }
+
+    private void setTicks() {
+        ++this.br;
+        if (this.br == 1) {
+            this.attackTicks = 60;
+            this.a(true);
+        } else if (this.br <= 4) {
+            this.attackTicks = 6;
+        } else {
+            this.attackTicks = 100;
+            this.br = 0;
+            this.a(false);
+        }
+    }
+
+    private void shootFireballs(float f, double d0, double d1, double d2) {
+        if (this.br > 1) {
+            float f1 = MathHelper.c(f) * 0.5F;
+
+            this.world.a((EntityHuman) null, 1009, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
+
+            for (int i = 0; i < 1; ++i) {
+                EntitySmallFireball entitysmallfireball = new EntitySmallFireball(this.world, this, d0 + this.random.nextGaussian() * (double) f1, d1, d2 + this.random.nextGaussian() * (double) f1);
+
+                entitysmallfireball.locY = this.locY + (double) (this.length / 2.0F) + 0.5D;
+                this.world.addEntity(entitysmallfireball);
+            }
         }
     }
 
