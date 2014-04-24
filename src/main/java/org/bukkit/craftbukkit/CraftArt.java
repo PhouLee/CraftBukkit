@@ -2,82 +2,59 @@ package org.bukkit.craftbukkit;
 
 import net.minecraft.server.EnumArt;
 import org.bukkit.Art;
-import java.lang.reflect.Method;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 // Safety class, will break if either side changes
 public class CraftArt {
-
+    static Map<Art, EnumArt> enumMap = new EnumMap<Art, EnumArt>(Art.class);
+    
+    static {
+        generateEnumMap();
+    }
+    
     public static Art NotchToBukkit(EnumArt art) {
-        switch (art) {
-            case KEBAB: return Art.KEBAB;
-            case AZTEC: return Art.AZTEC;
-            case ALBAN: return Art.ALBAN;
-            case AZTEC2: return Art.AZTEC2;
-            case BOMB: return Art.BOMB;
-            case PLANT: return Art.PLANT;
-            case WASTELAND: return Art.WASTELAND;
-            case POOL: return Art.POOL;
-            case COURBET: return Art.COURBET;
-            case SEA: return Art.SEA;
-            case SUNSET: return Art.SUNSET;
-            case CREEBET: return Art.CREEBET;
-            case WANDERER: return Art.WANDERER;
-            case GRAHAM: return Art.GRAHAM;
-            case MATCH: return Art.MATCH;
-            case BUST: return Art.BUST;
-            case STAGE: return Art.STAGE;
-            case VOID: return Art.VOID;
-            case SKULL_AND_ROSES: return Art.SKULL_AND_ROSES;
-            case FIGHTERS: return Art.FIGHTERS;
-            case POINTER: return Art.POINTER;
-            case PIGSCENE: return Art.PIGSCENE;
-            case BURNINGSKULL: return Art.BURNINGSKULL;
-            case SKELETON: return Art.SKELETON;
-            case DONKEYKONG: return Art.DONKEYKONG;
-            case WITHER: return Art.WITHER;
-            default:
-                throw new AssertionError(art);
+        
+        for(Art s : enumMap.keySet()){
+            if(enumMap.get(s).equals(art)) return s;
         }
+        throw new AssertionError(art);
     }
 
     public static EnumArt BukkitToNotch(Art art) {
+        
+        if(enumMap.get(art)!=null) return enumMap.get(art);
+        
+        throw new AssertionError(art);
+    }
 
-//        try {
-//            return EnumArt.valueOf(art.toString()); 
-//        } catch (IllegalArgumentException ignore) {
-//             throw new AssertionError(art);
-//        }
-
-
-        switch (art) {
-            case KEBAB: return EnumArt.KEBAB;
-            case AZTEC: return EnumArt.AZTEC;
-            case ALBAN: return EnumArt.ALBAN;
-            case AZTEC2: return EnumArt.AZTEC2;
-            case BOMB: return EnumArt.BOMB;
-            case PLANT: return EnumArt.PLANT;
-            case WASTELAND: return EnumArt.WASTELAND;
-            case POOL: return EnumArt.POOL;
-            case COURBET: return EnumArt.COURBET;
-            case SEA: return EnumArt.SEA;
-            case SUNSET: return EnumArt.SUNSET;
-            case CREEBET: return EnumArt.CREEBET;
-            case WANDERER: return EnumArt.WANDERER;
-            case GRAHAM: return EnumArt.GRAHAM;
-            case MATCH: return EnumArt.MATCH;
-            case BUST: return EnumArt.BUST;
-            case STAGE: return EnumArt.STAGE;
-            case VOID: return EnumArt.VOID;
-            case SKULL_AND_ROSES: return EnumArt.SKULL_AND_ROSES;
-            case FIGHTERS: return EnumArt.FIGHTERS;
-            case POINTER: return EnumArt.POINTER;
-            case PIGSCENE: return EnumArt.PIGSCENE;
-            case BURNINGSKULL: return EnumArt.BURNINGSKULL;
-            case SKELETON: return EnumArt.SKELETON;
-            case DONKEYKONG: return EnumArt.DONKEYKONG;
-            case WITHER: return EnumArt.WITHER;
-            default:
-                throw new AssertionError(art);
-        }
+    private static void generateEnumMap() {
+        enumMap.put(Art.KEBAB, EnumArt.KEBAB);
+        enumMap.put(Art.AZTEC, EnumArt.AZTEC);
+        enumMap.put(Art.ALBAN, EnumArt.ALBAN);
+        enumMap.put(Art.AZTEC2, EnumArt.AZTEC2);
+        enumMap.put(Art.BOMB, EnumArt.BOMB);
+        enumMap.put(Art.PLANT, EnumArt.PLANT);
+        enumMap.put(Art.WASTELAND, EnumArt.WASTELAND);
+        enumMap.put(Art.POOL, EnumArt.POOL);
+        enumMap.put(Art.COURBET, EnumArt.COURBET);
+        enumMap.put(Art.SEA, EnumArt.SEA);
+        enumMap.put(Art.SUNSET, EnumArt.SUNSET);
+        enumMap.put(Art.CREEBET, EnumArt.CREEBET);
+        enumMap.put(Art.WANDERER, EnumArt.WANDERER);
+        enumMap.put(Art.GRAHAM, EnumArt.GRAHAM);
+        enumMap.put(Art.MATCH, EnumArt.MATCH);
+        enumMap.put(Art.BUST, EnumArt.BUST);
+        enumMap.put(Art.STAGE, EnumArt.STAGE);
+        enumMap.put(Art.VOID, EnumArt.VOID);
+        enumMap.put(Art.SKULL_AND_ROSES, EnumArt.SKULL_AND_ROSES);
+        enumMap.put(Art.FIGHTERS, EnumArt.FIGHTERS);
+        enumMap.put(Art.POINTER, EnumArt.POINTER);
+        enumMap.put(Art.PIGSCENE, EnumArt.PIGSCENE);
+        enumMap.put(Art.BURNINGSKULL, EnumArt.BURNINGSKULL);
+        enumMap.put(Art.SKELETON, EnumArt.SKELETON);
+        enumMap.put(Art.DONKEYKONG, EnumArt.DONKEYKONG);
+        enumMap.put(Art.WITHER, EnumArt.WITHER);
     }
 }
