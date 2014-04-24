@@ -2,6 +2,10 @@ package net.minecraft.server;
 
 import java.util.Random;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.entity.CraftSheep;
 // CraftBukkit start
 import org.bukkit.event.entity.SheepRegrowWoolEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
@@ -30,6 +34,11 @@ public class EntitySheep extends EntityAnimal {
         this.bq.setItem(0, new ItemStack(Items.INK_SACK, 1, 0));
         this.bq.setItem(1, new ItemStack(Items.INK_SACK, 1, 0));
         this.bq.resultInventory = new InventoryCraftResult(); // CraftBukkit - add result slot for event
+    }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftSheep(server, (EntitySheep) entity);      
     }
 
     protected boolean bj() {

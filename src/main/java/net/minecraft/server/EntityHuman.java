@@ -8,9 +8,12 @@ import java.util.UUID;
 import net.minecraft.util.com.google.common.base.Charsets;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
 // CraftBukkit start
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.craftbukkit.entity.CraftItem;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
@@ -67,6 +70,11 @@ public abstract class EntityHuman extends EntityLiving implements ICommandListen
     private int h;
     private final GameProfile i;
     public EntityFishingHook hookedFish;
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftPlayer(server, (EntityPlayer) entity);      
+    }
 
     public EntityHuman(World world, GameProfile gameprofile) {
         super(world);

@@ -3,6 +3,10 @@ package net.minecraft.server;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftHorse;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
 // CraftBukkit start
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -56,6 +60,11 @@ public class EntityHorse extends EntityAnimal implements IInventoryListener {
         this.goalSelector.a(7, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
         this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
         this.loadChest();
+    }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftHorse(server, (EntityHorse) entity);      
     }
 
     protected void c() {

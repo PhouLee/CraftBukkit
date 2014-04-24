@@ -1,5 +1,9 @@
 package net.minecraft.server;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftCow;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
 import org.bukkit.event.player.PlayerShearEntityEvent; // CraftBukkit
 
 public class EntityMushroomCow extends EntityCow {
@@ -7,6 +11,11 @@ public class EntityMushroomCow extends EntityCow {
     public EntityMushroomCow(World world) {
         super(world);
         this.a(0.9F, 1.3F);
+    }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftMushroomCow(server, (EntityMushroomCow) entity);      
     }
 
     public boolean a(EntityHuman entityhuman) {

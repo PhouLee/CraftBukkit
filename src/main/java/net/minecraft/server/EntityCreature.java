@@ -2,8 +2,39 @@ package net.minecraft.server;
 
 import java.util.UUID;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftCreature;
+import org.bukkit.craftbukkit.entity.CraftAnimals;
+import org.bukkit.craftbukkit.entity.CraftChicken;
+import org.bukkit.craftbukkit.entity.CraftCow;
+import org.bukkit.craftbukkit.entity.CraftBlaze;
+import org.bukkit.craftbukkit.entity.CraftCaveSpider;
+import org.bukkit.craftbukkit.entity.CraftCreeper;
+import org.bukkit.craftbukkit.entity.CraftEnderman;
 // CraftBukkit start
 import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftGiant;
+import org.bukkit.craftbukkit.entity.CraftHorse;
+import org.bukkit.craftbukkit.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.entity.CraftIronGolem;
+import org.bukkit.craftbukkit.entity.CraftMonster;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.entity.CraftOcelot;
+import org.bukkit.craftbukkit.entity.CraftPig;
+import org.bukkit.craftbukkit.entity.CraftPigZombie;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.entity.CraftSheep;
+import org.bukkit.craftbukkit.entity.CraftSilverfish;
+import org.bukkit.craftbukkit.entity.CraftSkeleton;
+import org.bukkit.craftbukkit.entity.CraftSnowman;
+import org.bukkit.craftbukkit.entity.CraftSpider;
+import org.bukkit.craftbukkit.entity.CraftSquid;
+import org.bukkit.craftbukkit.entity.CraftVillager;
+import org.bukkit.craftbukkit.entity.CraftWaterMob;
+import org.bukkit.craftbukkit.entity.CraftWitch;
+import org.bukkit.craftbukkit.entity.CraftWither;
+import org.bukkit.craftbukkit.entity.CraftWolf;
+import org.bukkit.craftbukkit.entity.CraftZombie;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityUnleashEvent;
 // CraftBukkit end
@@ -21,6 +52,44 @@ public abstract class EntityCreature extends EntityInsentient {
     private PathfinderGoal bs = new PathfinderGoalMoveTowardsRestriction(this, 1.0D);
     private boolean bt;
 
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){           
+        
+                if (entity instanceof EntityAnimal) {
+                    if (entity instanceof EntityTameableAnimal) {
+                        return entity.makeCraftEntity(server, entity);
+                    }
+                    else if (entity instanceof EntitySheep || entity instanceof EntityHorse || entity instanceof EntityChicken || entity instanceof EntityCow) { return entity.makeCraftEntity(server, entity); }
+                    
+                    return new CraftAnimals(server, (EntityAnimal) entity); 
+                }
+                // Monsters
+                else if (entity instanceof EntityMonster) {
+                    //return new CraftAnimals(server, (EntityAnimal) entity);
+                    if (entity instanceof EntityGiantZombie) { return new CraftGiant(server, (EntityGiantZombie) entity); }
+                    else if (entity instanceof EntityWitch) { return new CraftWitch(server, (EntityWitch) entity); }
+                    else if (entity instanceof EntityWither) { return new CraftWither(server, (EntityWither) entity); }
+                    else if (entity instanceof EntitySpider) {
+                        if (entity instanceof EntityCaveSpider) { return new CraftCaveSpider(server, (EntityCaveSpider) entity); }
+                        else { return new CraftSpider(server, (EntitySpider) entity); }
+                    }
+
+                    return entity.makeCraftEntity(server, entity);  
+                }
+                // Water Animals
+                else if (entity instanceof EntityWaterAnimal) {
+                    if (entity instanceof EntitySquid) { return new CraftSquid(server, (EntitySquid) entity); }
+                    else { return new CraftWaterMob(server, (EntityWaterAnimal) entity); }
+                }
+                else if (entity instanceof EntityGolem) {
+                    if (entity instanceof EntitySnowman) { return new CraftSnowman(server, (EntitySnowman) entity); }
+                    else if (entity instanceof EntityIronGolem) { return new CraftIronGolem(server, (EntityIronGolem) entity); }
+                }
+                else if (entity instanceof EntityVillager) { return new CraftVillager(server, (EntityVillager) entity); }
+                
+                return new CraftCreature(server, (EntityCreature) entity);         
+    }
+    
     public EntityCreature(World world) {
         super(world);
     }

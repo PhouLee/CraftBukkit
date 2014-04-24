@@ -4,6 +4,10 @@ import java.util.UUID;
 
 // CraftBukkit start
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEnderman;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityTeleportEvent;
 // CraftBukkit end
@@ -30,6 +34,10 @@ public class EntityEnderman extends EntityMonster {
         this.getAttributeInstance(GenericAttributes.d).setValue(0.30000001192092896D);
         this.getAttributeInstance(GenericAttributes.e).setValue(7.0D);
     }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftEnderman(server, (EntityEnderman) entity);    }
 
     protected void c() {
         super.c();

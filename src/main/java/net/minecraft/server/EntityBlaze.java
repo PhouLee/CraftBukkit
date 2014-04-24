@@ -1,5 +1,10 @@
 package net.minecraft.server;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftBlaze;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
+
 public class EntityBlaze extends EntityMonster {
 
     private float bp = 0.5F;
@@ -11,6 +16,10 @@ public class EntityBlaze extends EntityMonster {
         this.fireProof = true;
         this.b = 10;
     }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftBlaze(server, (EntityBlaze) entity);    }
 
     protected void aC() {
         super.aC();

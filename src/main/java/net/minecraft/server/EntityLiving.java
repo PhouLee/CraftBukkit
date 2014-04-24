@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 // CraftBukkit start
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -78,6 +81,11 @@ public abstract class EntityLiving extends Entity {
     public int expToDrop;
     public int maxAirTicks = 300;
     // CraftBukkit end
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftHumanEntity(server, (EntityHuman) entity);      
+    }
 
     public EntityLiving(World world) {
         super(world);

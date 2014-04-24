@@ -3,6 +3,10 @@ package net.minecraft.server;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.entity.CraftPigZombie;
 // CraftBukkit start
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -21,6 +25,11 @@ public class EntityPigZombie extends EntityZombie {
         this.fireProof = true;
     }
 
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftPigZombie(server, (EntityPigZombie) entity);     
+    }
+    
     protected void aC() {
         super.aC();
         this.getAttributeInstance(bp).setValue(0.0D);

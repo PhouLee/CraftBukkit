@@ -1,5 +1,7 @@
 package org.bukkit.craftbukkit.entity;
 
+import net.minecraft.server.Entity;
+import net.minecraft.server.EntityMushroomCow;
 import net.minecraft.server.EntityOcelot;
 import org.apache.commons.lang.Validate;
 import org.bukkit.craftbukkit.CraftServer;
@@ -11,6 +13,10 @@ public class CraftOcelot extends CraftTameableAnimal implements Ocelot {
         super(server, wolf);
     }
 
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftOcelot(server, (EntityOcelot) entity);      
+    }
+    
     @Override
     public EntityOcelot getHandle() {
         return (EntityOcelot) entity;

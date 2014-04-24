@@ -2,6 +2,10 @@ package net.minecraft.server;
 
 import net.minecraft.util.org.apache.commons.lang3.tuple.ImmutablePair;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
+import org.bukkit.craftbukkit.entity.CraftSilverfish;
 import org.bukkit.craftbukkit.event.CraftEventFactory; // CraftBukkit
 
 public class EntitySilverfish extends EntityMonster {
@@ -23,6 +27,10 @@ public class EntitySilverfish extends EntityMonster {
     protected boolean g_() {
         return false;
     }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftSilverfish(server, (EntitySilverfish) entity);    }
 
     protected Entity findTarget() {
         double d0 = 8.0D;

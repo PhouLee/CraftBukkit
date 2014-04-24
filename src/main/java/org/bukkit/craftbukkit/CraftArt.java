@@ -2,6 +2,7 @@ package org.bukkit.craftbukkit;
 
 import net.minecraft.server.EnumArt;
 import org.bukkit.Art;
+import java.lang.reflect.Method;
 
 // Safety class, will break if either side changes
 public class CraftArt {
@@ -40,6 +41,14 @@ public class CraftArt {
     }
 
     public static EnumArt BukkitToNotch(Art art) {
+
+//        try {
+//            return EnumArt.valueOf(art.toString()); 
+//        } catch (IllegalArgumentException ignore) {
+//             throw new AssertionError(art);
+//        }
+
+
         switch (art) {
             case KEBAB: return EnumArt.KEBAB;
             case AZTEC: return EnumArt.AZTEC;

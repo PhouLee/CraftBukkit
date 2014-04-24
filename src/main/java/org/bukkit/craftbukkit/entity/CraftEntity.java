@@ -38,54 +38,7 @@ public abstract class CraftEntity implements org.bukkit.entity.Entity {
                 else { return new CraftHumanEntity(server, (EntityHuman) entity); }
             }
             else if (entity instanceof EntityCreature) {
-                // Animals
-                if (entity instanceof EntityAnimal) {
-                    if (entity instanceof EntityChicken) { return new CraftChicken(server, (EntityChicken) entity); }
-                    else if (entity instanceof EntityCow) {
-                        if (entity instanceof EntityMushroomCow) { return new CraftMushroomCow(server, (EntityMushroomCow) entity); }
-                        else { return new CraftCow(server, (EntityCow) entity); }
-                    }
-                    else if (entity instanceof EntityPig) { return new CraftPig(server, (EntityPig) entity); }
-                    else if (entity instanceof EntityTameableAnimal) {
-                        if (entity instanceof EntityWolf) { return new CraftWolf(server, (EntityWolf) entity); }
-                        else if (entity instanceof EntityOcelot) { return new CraftOcelot(server, (EntityOcelot) entity); }
-                    }
-                    else if (entity instanceof EntitySheep) { return new CraftSheep(server, (EntitySheep) entity); }
-                    else if (entity instanceof EntityHorse) { return new CraftHorse(server, (EntityHorse) entity); }
-                    else  { return new CraftAnimals(server, (EntityAnimal) entity); }
-                }
-                // Monsters
-                else if (entity instanceof EntityMonster) {
-                    if (entity instanceof EntityZombie) {
-                        if (entity instanceof EntityPigZombie) { return new CraftPigZombie(server, (EntityPigZombie) entity); }
-                        else { return new CraftZombie(server, (EntityZombie) entity); }
-                    }
-                    else if (entity instanceof EntityCreeper) { return new CraftCreeper(server, (EntityCreeper) entity); }
-                    else if (entity instanceof EntityEnderman) { return new CraftEnderman(server, (EntityEnderman) entity); }
-                    else if (entity instanceof EntitySilverfish) { return new CraftSilverfish(server, (EntitySilverfish) entity); }
-                    else if (entity instanceof EntityGiantZombie) { return new CraftGiant(server, (EntityGiantZombie) entity); }
-                    else if (entity instanceof EntitySkeleton) { return new CraftSkeleton(server, (EntitySkeleton) entity); }
-                    else if (entity instanceof EntityBlaze) { return new CraftBlaze(server, (EntityBlaze) entity); }
-                    else if (entity instanceof EntityWitch) { return new CraftWitch(server, (EntityWitch) entity); }
-                    else if (entity instanceof EntityWither) { return new CraftWither(server, (EntityWither) entity); }
-                    else if (entity instanceof EntitySpider) {
-                        if (entity instanceof EntityCaveSpider) { return new CraftCaveSpider(server, (EntityCaveSpider) entity); }
-                        else { return new CraftSpider(server, (EntitySpider) entity); }
-                    }
-
-                    else  { return new CraftMonster(server, (EntityMonster) entity); }
-                }
-                // Water Animals
-                else if (entity instanceof EntityWaterAnimal) {
-                    if (entity instanceof EntitySquid) { return new CraftSquid(server, (EntitySquid) entity); }
-                    else { return new CraftWaterMob(server, (EntityWaterAnimal) entity); }
-                }
-                else if (entity instanceof EntityGolem) {
-                    if (entity instanceof EntitySnowman) { return new CraftSnowman(server, (EntitySnowman) entity); }
-                    else if (entity instanceof EntityIronGolem) { return new CraftIronGolem(server, (EntityIronGolem) entity); }
-                }
-                else if (entity instanceof EntityVillager) { return new CraftVillager(server, (EntityVillager) entity); }
-                else { return new CraftCreature(server, (EntityCreature) entity); }
+                entity.makeCraftEntity(server, entity);
             }
             // Slimes are a special (and broken) case
             else if (entity instanceof EntitySlime) {

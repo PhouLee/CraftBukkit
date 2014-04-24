@@ -1,5 +1,9 @@
 package net.minecraft.server;
 
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftMonster;
+import org.bukkit.craftbukkit.entity.CraftMushroomCow;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityTargetEvent; // CraftBukkit
 
@@ -8,6 +12,11 @@ public abstract class EntityMonster extends EntityCreature implements IMonster {
     public EntityMonster(World world) {
         super(world);
         this.b = 5;
+    }
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftMonster(server, (EntityMonster) entity);      
     }
     
     protected void worldStuff() {

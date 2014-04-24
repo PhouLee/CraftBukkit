@@ -19,6 +19,7 @@ import org.bukkit.event.painting.PaintingBreakByEntityEvent;
 import org.bukkit.event.vehicle.VehicleBlockCollisionEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -1878,4 +1879,8 @@ public abstract class Entity {
     }
 
     public void i(int i) {}
+
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity) {
+        throw new AssertionError("Unknown entity " + entity == null ? null : entity.getClass());
+    }
 }

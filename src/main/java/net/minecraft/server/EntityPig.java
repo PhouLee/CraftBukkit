@@ -1,6 +1,9 @@
 package net.minecraft.server;
 
 // CraftBukkit start
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftPig;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.util.CraftMagicNumbers;
 // CraftBukkit end
@@ -8,6 +11,11 @@ import org.bukkit.craftbukkit.util.CraftMagicNumbers;
 public class EntityPig extends EntityAnimal {
 
     private final PathfinderGoalPassengerCarrotStick bp;
+    
+    @Override
+    public CraftEntity makeCraftEntity(CraftServer server, Entity entity){      
+        return new CraftPig(server, (EntityPig) entity);      
+    }
 
     public EntityPig(World world) {
         super(world);
