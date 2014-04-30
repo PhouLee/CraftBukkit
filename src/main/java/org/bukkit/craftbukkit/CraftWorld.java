@@ -4,12 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
 import net.minecraft.server.*;
+import net.minecraft.server.BlockSapling.TreeGenerator;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.BlockChangeDelegate;
@@ -353,58 +356,34 @@ public class CraftWorld implements World {
     public boolean generateTree(Location loc, TreeType type) {
         return generateTree(loc, type, world);
     }
+    
+    static Map<TreeType,Object> genType = new Hashtable<TreeType,Object>();
+    
+    static{
+        genType.put(TreeType.BIG_TREE,new WorldGenBigTree(true));
+        genType.put(TreeType.BIRCH,new WorldGenForest(true, false));
+        genType.put(TreeType.REDWOOD,new WorldGenTaiga2(true));
+        genType.put(TreeType.TALL_REDWOOD,new WorldGenTaiga1());
+        genType.put(TreeType.JUNGLE,new WorldGenJungleTree(true, 10, 20, 3, 3));
+        genType.put(TreeType.SMALL_JUNGLE,new WorldGenTrees(true, 4 + rand.nextInt(7), 3, 3, false));
+        genType.put(TreeType.JUNGLE_BUSH,new WorldGenGroundBush(3, 0));
+        genType.put(TreeType.RED_MUSHROOM,new WorldGenHugeMushroom(1));
+        genType.put(TreeType.BROWN_MUSHROOM,new  WorldGenHugeMushroom(0));
+        genType.put(TreeType.SWAMP,new WorldGenSwampTree());
+        genType.put(TreeType.ACACIA,new WorldGenAcaciaTree(true));
+        genType.put(TreeType.DARK_OAK,new WorldGenForestTree(true));
+        genType.put(TreeType.MEGA_REDWOOD,new WorldGenMegaTree(true, rand.nextBoolean()));
+        genType.put(TreeType.TALL_REDWOOD,new WorldGenForest(true, true));
+        genType.put(TreeType.TREE,null);
+    }
 
     public boolean generateTree(Location loc, TreeType type, BlockChangeDelegate delegate) {
         BlockSapling.TreeGenerator gen;
-        switch (type) {
-        case BIG_TREE:
-            gen = new WorldGenBigTree(true);
-            break;
-        case BIRCH:
-            gen = new WorldGenForest(true, false);
-            break;
-        case REDWOOD:
-            gen = new WorldGenTaiga2(true);
-            break;
-        case TALL_REDWOOD:
-            gen = new WorldGenTaiga1();
-            break;
-        case JUNGLE:
-            gen = new WorldGenJungleTree(true, 10, 20, 3, 3); // Magic values as in BlockSapling
-            break;
-        case SMALL_JUNGLE:
-            gen = new WorldGenTrees(true, 4 + rand.nextInt(7), 3, 3, false);
-            break;
-        case JUNGLE_BUSH:
-            gen = new WorldGenGroundBush(3, 0);
-            break;
-        case RED_MUSHROOM:
-            gen = new WorldGenHugeMushroom(1);
-            break;
-        case BROWN_MUSHROOM:
-            gen = new WorldGenHugeMushroom(0);
-            break;
-        case SWAMP:
-            gen = new WorldGenSwampTree();
-            break;
-        case ACACIA:
-            gen = new WorldGenAcaciaTree(true);
-            break;
-        case DARK_OAK:
-            gen = new WorldGenForestTree(true);
-            break;
-        case MEGA_REDWOOD:
-            gen = new WorldGenMegaTree(true, rand.nextBoolean());
-            break;
-        case TALL_BIRCH:
-            gen = new WorldGenForest(true, true);
-            break;
-        case TREE:
-        default:
+        if(genType.get(type)!=null){
+            gen = (TreeGenerator) genType.get(type);
+        }else{
             gen = new WorldGenTrees(true);
-            break;
         }
-
         return gen.generate(new CraftBlockChangeDelegate(delegate), rand, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
     }
 
