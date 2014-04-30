@@ -11,25 +11,6 @@ public class CraftArt {
     static Map<Art, EnumArt> enumMap = new EnumMap<Art, EnumArt>(Art.class);
     
     static {
-        generateEnumMap();
-    }
-    
-    public static Art NotchToBukkit(EnumArt art) {
-        
-        for(Art s : enumMap.keySet()){
-            if(enumMap.get(s).equals(art)) return s;
-        }
-        throw new AssertionError(art);
-    }
-
-    public static EnumArt BukkitToNotch(Art art) {
-        
-        if(enumMap.get(art)!=null) return enumMap.get(art);
-        
-        throw new AssertionError(art);
-    }
-
-    private static void generateEnumMap() {
         enumMap.put(Art.KEBAB, EnumArt.KEBAB);
         enumMap.put(Art.AZTEC, EnumArt.AZTEC);
         enumMap.put(Art.ALBAN, EnumArt.ALBAN);
@@ -56,5 +37,20 @@ public class CraftArt {
         enumMap.put(Art.SKELETON, EnumArt.SKELETON);
         enumMap.put(Art.DONKEYKONG, EnumArt.DONKEYKONG);
         enumMap.put(Art.WITHER, EnumArt.WITHER);
+    }
+    
+    public static Art NotchToBukkit(EnumArt art) {
+        
+        for(Art s : enumMap.keySet()){
+            if(enumMap.get(s).equals(art)) return s;
+        }
+        throw new AssertionError(art);
+    }
+
+    public static EnumArt BukkitToNotch(Art art) {
+        
+        if(enumMap.get(art)!=null) return enumMap.get(art);
+        
+        throw new AssertionError(art);
     }
 }
