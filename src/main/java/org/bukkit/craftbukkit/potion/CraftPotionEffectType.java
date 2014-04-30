@@ -1,12 +1,42 @@
 package org.bukkit.craftbukkit.potion;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import net.minecraft.server.MobEffectList;
 
 import org.bukkit.potion.PotionEffectType;
 
 public class CraftPotionEffectType extends PotionEffectType {
     private final MobEffectList handle;
-
+    static Map<Integer, String> effectType = new Hashtable<Integer,String>();
+    
+    static {
+        effectType.put(1, "SPEED");
+        effectType.put(2, "SLOW");
+        effectType.put(3, "FAST_DIGGING");
+        effectType.put(4, "SLOW_DIGGING");
+        effectType.put(5, "INCREASE_DAMAGE");
+        effectType.put(6, "HEAL");
+        effectType.put(7, "HARM");
+        effectType.put(8, "JUMP");
+        effectType.put(9, "CONFUSION");
+        effectType.put(10, "REGENERATION");
+        effectType.put(11, "DAMAGE_RESISTANCE");
+        effectType.put(12, "FIRE_RESISTANCE");
+        effectType.put(13, "WATER_BREATHING");
+        effectType.put(14, "INVISIBILITY");
+        effectType.put(15, "BLINDNESS");
+        effectType.put(16, "NIGHT_VISION");
+        effectType.put(17, "HUNGER");
+        effectType.put(18, "WEAKNESS");
+        effectType.put(19, "POISON");
+        effectType.put(20, "WITHER");
+        effectType.put(21, "HEALTH_BOOST");
+        effectType.put(22, "ABSORPTION");
+        effectType.put(23, "SATURATION");
+    }
+    
     public CraftPotionEffectType(MobEffectList handle) {
         super(handle.id);
         this.handle = handle;
@@ -23,56 +53,8 @@ public class CraftPotionEffectType extends PotionEffectType {
 
     @Override
     public String getName() {
-        switch (handle.id) {
-        case 1:
-            return "SPEED";
-        case 2:
-            return "SLOW";
-        case 3:
-            return "FAST_DIGGING";
-        case 4:
-            return "SLOW_DIGGING";
-        case 5:
-            return "INCREASE_DAMAGE";
-        case 6:
-            return "HEAL";
-        case 7:
-            return "HARM";
-        case 8:
-            return "JUMP";
-        case 9:
-            return "CONFUSION";
-        case 10:
-            return "REGENERATION";
-        case 11:
-            return "DAMAGE_RESISTANCE";
-        case 12:
-            return "FIRE_RESISTANCE";
-        case 13:
-            return "WATER_BREATHING";
-        case 14:
-            return "INVISIBILITY";
-        case 15:
-            return "BLINDNESS";
-        case 16:
-            return "NIGHT_VISION";
-        case 17:
-            return "HUNGER";
-        case 18:
-            return "WEAKNESS";
-        case 19:
-            return "POISON";
-        case 20:
-            return "WITHER";
-        case 21:
-            return "HEALTH_BOOST";
-        case 22:
-            return "ABSORPTION";
-        case 23:
-            return "SATURATION";
-        default:
+            if(effectType.get(handle.id)!=null) return effectType.get(handle.id);
             return "UNKNOWN_EFFECT_TYPE_" + handle.id;
-        }
     }
 
     @Override
